@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>Admin Orders</h2>
+<div id="orders"></div>
+<h3>Menu Availability</h3>
+<div id="menu-admin"></div>
+<hr>
+
+<hr>
+
+<h2>Admin Profile Settings</h2>
+
+<input type="password" id="oldAdminPass" placeholder="Current Password">
+<br><br>
+
+<input type="text" id="newAdminName" placeholder="New Admin Username">
+<br><br>
+
+<input type="password" id="newAdminPass" placeholder="New Admin Password">
+<br><br>
+
+<button onclick="updateAdmin()">Update Admin</button>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

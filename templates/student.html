@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Canteen</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>Menu Card</h2>
+<div id="menu"></div>
+
+<h3>Your Order Status</h3>
+<div id="status"></div>
+<!-- PAYMENT MODAL -->
+<div id="payment-modal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Payment Required</h3>
+    <p id="payment-info"></p>
+
+    <button class="pay-btn" onclick="confirmPayment()">Pay Now</button>
+    <button class="cancel-btn" onclick="closePayment()">Cancel</button>
+  </div>
+</div>
+
+
+
+<script src="/static/script.js"></script>
+</body>
+</html>
