@@ -23,8 +23,13 @@ admin_data = load_admin()
 menu = [
     {"id": 1, "name": "Burger", "price": 50, "available": True},
     {"id": 2, "name": "Pizza", "price": 80, "available": True},
-    {"id": 3, "name": "Tea", "price": 20, "available": False}
+    {"id": 3, "name": "Tea", "price": 20, "available": True}
 ]
+
+# ---------------- DISABLE ALL ITEMS ----------------
+def disable_all_items():
+    for item in menu:
+        item["available"] = False
 
 # ---------------- ORDERS FILE ----------------
 ORDERS_FILE = "orders.json"
@@ -53,6 +58,7 @@ def student_page():
 
 @app.route("/admin")
 def admin_page():
+    disable_all_items()  # 🔥 RESET MENU WHEN ADMIN OPENS PANEL
     return render_template("admin.html")
 
 # ---------------- LOGIN ----------------
@@ -85,6 +91,11 @@ def place_order():
     if not student or not item or not qty:
         return jsonify({"error": "Invalid order data"}), 400
 
+    # check availability
+    for m in menu:
+        if m["name"] == item and not m["available"]:
+            return jsonify({"error": "Item not available"}), 400
+
     orders.append({
         "student": student,
         "item": item,
@@ -100,7 +111,7 @@ def place_order():
 def get_orders():
     return jsonify(load_orders())
 
-# ---------------- UPDATE ORDER STATUS (Accept / Reject / Deliver) ----------------
+# ---------------- UPDATE ORDER STATUS ----------------
 @app.route("/update", methods=["POST"])
 def update_status():
     data = request.json or {}
@@ -110,18 +121,13 @@ def update_status():
     item = data.get("item")
     status = data.get("status")
 
-    found = False
     for o in orders:
         if o["student"] == student and o["item"] == item and o["status"] != "Delivered":
             o["status"] = status
-            found = True
-            break
+            save_orders(orders)
+            return jsonify({"message": "Order updated"})
 
-    if not found:
-        return jsonify({"error": "Order not found"}), 400
-
-    save_orders(orders)
-    return jsonify({"message": "Order updated"})
+    return jsonify({"error": "Order not found"}), 400
 
 # ---------------- TOGGLE MENU AVAILABILITY ----------------
 @app.route("/toggle", methods=["POST"])
@@ -140,7 +146,6 @@ def toggle_menu():
 def student_orders(student_name):
     orders = load_orders()
     student_name = student_name.lower()
-    # return only orders for that student
     return jsonify([o for o in orders if o["student"] == student_name])
 
 # ---------------- ADMIN PROFILE UPDATE ----------------
@@ -165,7 +170,4 @@ def admin_update():
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-   if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-
-
+    app.run(debug=True)
