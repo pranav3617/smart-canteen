@@ -23,8 +23,20 @@ admin_data = load_admin()
 menu = [
     {"id": 1, "name": "Burger", "price": 50, "available": True},
     {"id": 2, "name": "Pizza", "price": 80, "available": True},
-    {"id": 3, "name": "Tea", "price": 20, "available": True}
+    {"id": 3, "name": "Tea", "price": 20, "available": True},
+    {"id": 4, "name": "Vadapav", "price": 20, "available": True},
+    {"id": 5, "name": "Samosa", "price": 20, "available": True},
+    {"id": 6, "name": "Bread patis", "price": 20, "available": True},
+    {"id": 7, "name": "Pohe", "price": 25, "available": True},
+    {"id": 8, "name": "Idli", "price": 40, "available": True},
+
+    # 🔥 NEW ITEMS
+    {"id": 9, "name": "Cold Coffee", "price": 35, "available": True},
+    {"id": 10, "name": "Paneer Roll", "price": 45, "available": True},
+    {"id": 11, "name": "Masala Dosa", "price": 50, "available": True},
+    {"id": 12, "name": "Veg Thali", "price": 70, "available": True}
 ]
+
 
 # ---------------- DISABLE ALL ITEMS ----------------
 def disable_all_items():
@@ -171,3 +183,4 @@ def admin_update():
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(debug=True)
+
